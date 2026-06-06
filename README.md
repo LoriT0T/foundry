@@ -6,7 +6,7 @@ Foundry is a *copy-into-any-new-agent* foundation: clone it, run the birth seque
 
 > **Foundry is a methodology, not a product.** There is nothing to `pip install` and no service to run. It is a structured set of documents an agent reads and instantiates. The value is the structure and the discipline — not code you depend on.
 
-**Status:** Foundry **V0 is built and in use.** V1 and V2 are **planned placeholders** — each will be built later by its own dedicated agent (see the version ladder).
+**Status:** Foundry **V0, V1, and V2 are built and in use.** V0 is the foundation; V1 adds operating under regulation; V2 adds knowing *which problem* to solve first (see the version ladder). Each version is a single evolving tree; older slots are frozen snapshots.
 
 - 🔗 **Site:** `https://LoriT0T.github.io/foundry/`
 - 📦 **Built on top of Foundry:** a real, safety-critical agent instantiated from this methodology — [site](https://lorit0t.github.io/agentic-reschedule-assistant/) · [repo](https://github.com/LoriT0T/agentic-reschedule-assistant)
@@ -34,6 +34,8 @@ An agent born from Foundry decides the hard questions **before any code**:
 4. What is irreversible or risky, and therefore needs a human gate.
 5. The cadence it runs on, and how it reports.
 
+As of V2 the sequence is bracketed by two mandatory recognition questions that carry **zero** specifics of their own: **first** — *is the problem real, or merely assumed?* (V2); and before building — *does this domain operate under external regulation?* (V1). A "yes/assumed" routes to the matching capability's research playbook; a "no/verified" loads nothing and the agent proceeds exactly as a V0-born one.
+
 The answers form a reviewable **birth certificate**: before the agent does anything, you can read exactly what it decided it is. Then it loads the foundation in full, reads the knowledge index, and instantiates each capability against its own context.
 
 ## The version ladder
@@ -41,10 +43,10 @@ The answers form a reviewable **birth certificate**: before the agent does anyth
 | Version | Status | What it adds |
 |---|---|---|
 | **V0** | ✅ **Built** — real, in use | The foundation: two branches, two principles, the birth sequence, the loading discipline. |
-| **V1** | 🔲 **Planned** — not yet built | *To be defined when built (by its own agent).* |
-| **V2** | 🔲 **Planned** — not yet built | *To be defined when built (by its own agent).* |
+| **V1** | ✅ **Built** — real, in use | **Regulatory architecture** — recognizing a regulated domain and letting its *current, researched* rules drive the build, while the file itself carries zero rules, regimes, or jurisdictions. |
+| **V2** | ✅ **Built** — real, in use | **Problem discovery** — determining *which problem* in a domain is actually worth solving, before building, while carrying zero markets, domains, or problems. Runs **first**, upstream of V1 and the build. |
 
-V1 and V2 are intentionally empty placeholders. Each will be built later by its own dedicated agent — exactly as V0 was — and its slot filled at that time. This repository does not describe their contents, because they have not been designed.
+Each version added a capability that holds **only the method**, never the specifics — a regulated agent researches its own rules (V1); an agent finds its own domain's real problem (V2). Both stay bias-free: an unregulated, problem-verified agent loads neither and behaves exactly as a V0-born one. `foundry-v0/` and `foundry-v1/` are frozen snapshots; the working foundation is a single evolving tree whose current state is V2.
 
 ## Proven under real use
 
@@ -53,12 +55,12 @@ Foundry is meant to improve as agents are actually built on it. The **first real
 ## Repository structure
 
 ```
-foundry-v0/          ✅ the real, current foundation
+foundry-v0/          ✅ frozen snapshot — the original foundation
   BOOTSTRAP.md         the birth sequence + loading rule
   foundation/          behavioral branch (9 files)
   knowledge/           technical branch (index + 5 spine files + 10 capabilities)
-foundry-v1/          🔲 planned placeholder (ROADMAP.md only)
-foundry-v2/          🔲 planned placeholder (ROADMAP.md only)
+foundry-v1/          ✅ frozen snapshot — V0 + regulatory architecture (11 capabilities)
+foundry-v2/          ✅ current — V1 + problem discovery (12 capabilities)
 index.html           the GitHub Pages site
 LICENSE              MIT
 ```

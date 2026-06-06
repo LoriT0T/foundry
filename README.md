@@ -65,4 +65,4 @@ LICENSE              MIT
 
 ## License
 
-MIT — see [LICENSE](LICENSE). © 2026 Musaed.
+MIT — see [LICENSE](LICENSE). © 2026 LoriT0T.

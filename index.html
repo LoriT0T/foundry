@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foundry — an open methodology for building independent AI agents</title>
+<meta name="description" content="Foundry is a copy-into-any-new-agent foundation that produces independent AI agents at a high quality floor. A methodology, not a product.">
+<style>
+  :root{
+    --ink:#0f172a; --body:#334155; --muted:#64748b; --line:#e2e8f0;
+    --bg:#ffffff; --alt:#f8fafc; --accent:#4338ca; --accent-soft:#eef2ff;
+    --built-bg:#ecfdf5; --built-tx:#047857; --built-ln:#a7f3d0;
+    --plan-bg:#f1f5f9; --plan-tx:#64748b; --plan-ln:#cbd5e1;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--sans);color:var(--body);background:var(--bg);
+    line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{color:var(--ink);line-height:1.25;letter-spacing:-0.02em;margin:0 0 .5em}
+  h2{font-size:1.6rem;margin-top:0}
+  h3{font-size:1.15rem;margin-bottom:.35em}
+  p{margin:0 0 1rem}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{font-family:var(--mono);font-size:.86em;background:var(--alt);
+    border:1px solid var(--line);border-radius:5px;padding:.08em .38em}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+  section{padding:72px 0;border-top:1px solid var(--line)}
+  section.alt{background:var(--alt)}
+  .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .8rem}
+
+  /* header */
+  header.bar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.86);
+    backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .brand{font-weight:800;color:var(--ink);letter-spacing:-.02em;font-size:1.05rem}
+  .brand .dot{color:var(--accent)}
+  nav a{color:var(--muted);font-size:.92rem;font-weight:600;margin-left:22px}
+  nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:620px){nav a{margin-left:14px;font-size:.85rem}.brand{font-size:1rem}}
+
+  /* hero */
+  .hero{padding:84px 0 64px;text-align:center;border-top:none}
+  .hero h1{font-size:3rem;margin-bottom:.25em}
+  .hero .lede{font-size:1.3rem;color:var(--ink);max-width:680px;margin:0 auto 1rem;font-weight:500}
+  .hero .sub{font-size:1.02rem;color:var(--muted);max-width:620px;margin:0 auto 1.6rem}
+  @media(max-width:620px){.hero h1{font-size:2.2rem}.hero .lede{font-size:1.12rem}}
+  .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:1.4rem 0}
+  .badge{display:inline-flex;align-items:center;gap:7px;font-size:.84rem;font-weight:700;
+    padding:6px 13px;border-radius:999px;border:1px solid}
+  .badge .led{width:8px;height:8px;border-radius:50%}
+  .badge.built{background:var(--built-bg);color:var(--built-tx);border-color:var(--built-ln)}
+  .badge.built .led{background:var(--built-tx)}
+  .badge.plan{background:var(--plan-bg);color:var(--plan-tx);border-color:var(--plan-ln)}
+  .badge.plan .led{background:var(--plan-tx)}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:1.6rem}
+  .btn{display:inline-block;font-weight:650;font-size:.95rem;padding:11px 20px;border-radius:9px;
+    border:1px solid var(--accent)}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.primary:hover{background:#3730a3;text-decoration:none}
+  .btn.ghost{background:#fff;color:var(--accent)}
+  .btn.ghost:hover{background:var(--accent-soft);text-decoration:none}
+
+  /* generic cards */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+  @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px}
+  section.alt .card{background:#fff}
+  .card h3{display:flex;align-items:center;gap:9px}
+  .num{flex:none;width:26px;height:26px;border-radius:7px;background:var(--accent-soft);
+    color:var(--accent);font-weight:800;font-size:.85rem;display:grid;place-items:center}
+  .lead{font-size:1.06rem;color:var(--body);max-width:720px}
+
+  /* birth sequence */
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:1.2rem 0 0}
+  ol.steps li{counter-increment:s;position:relative;padding:0 0 18px 46px;margin:0}
+  ol.steps li:not(:last-child)::after{content:"";position:absolute;left:15px;top:30px;bottom:-2px;width:2px;background:var(--line)}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:31px;height:31px;
+    border-radius:50%;background:#fff;border:2px solid var(--accent);color:var(--accent);
+    font-weight:800;font-size:.9rem;display:grid;place-items:center}
+  ol.steps b{color:var(--ink)}
+  .cert{margin-top:18px;background:var(--accent-soft);border:1px solid #c7d2fe;border-radius:10px;
+    padding:14px 18px;font-size:.97rem}
+
+  /* inventory */
+  .inv{font-family:var(--mono);font-size:.82rem;line-height:1.85;background:#0f172a;color:#e2e8f0;
+    border-radius:12px;padding:20px 22px;overflow-x:auto}
+  .inv .c{color:#94a3b8}
+  .inv .k{color:#a5b4fc}
+
+  /* story callout */
+  .story{border-left:3px solid var(--accent);background:#fff;border-radius:0 10px 10px 0;
+    padding:18px 22px;margin-top:8px}
+  section.alt .story{background:var(--alt)}
+
+  /* version slots */
+  .slot{border:1px dashed var(--plan-ln);background:repeating-linear-gradient(135deg,#fff,#fff 10px,#f8fafc 10px,#f8fafc 20px);
+    border-radius:12px;padding:24px}
+  .slot.built{border:1px solid var(--built-ln);background:var(--built-bg)}
+  .slot h3{margin-bottom:.3em}
+  .slot .st{font-size:.8rem;font-weight:700;letter-spacing:.04em;margin-bottom:.7rem}
+  .slot.built .st{color:var(--built-tx)}
+  .slot.plan .st{color:var(--plan-tx)}
+
+  /* table */
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem;background:#fff;
+    border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--alt);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  td .tag{font-weight:700;font-size:.82rem}
+  td .tag.b{color:var(--built-tx)} td .tag.p{color:var(--plan-tx)}
+  .tbd{color:var(--muted);font-style:italic}
+
+  .ph{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:9px;
+    padding:3px 9px;font-size:.8rem;font-weight:700;font-family:var(--mono)}
+
+  footer{border-top:1px solid var(--line);background:var(--alt);padding:40px 0;color:var(--muted);font-size:.92rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .note{font-size:.95rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="brand">Foundry<span class="dot">.</span></span>
+    <nav>
+      <a href="#method">The method</a>
+      <a href="#v0">V0</a>
+      <a href="#versions">Versions</a>
+      <a href="https://github.com/LoriT0T/foundry">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero">
+    <h1>Foundry</h1>
+    <p class="lede">An open methodology for building <strong>independent</strong> AI agents from a single, verified foundation.</p>
+    <p class="sub">Copy it into any new agent, run the birth sequence, and that agent stands up at a high quality floor — the thinking, the engineering discipline, and the method to instantiate both for its own context.</p>
+    <div class="badges">
+      <span class="badge built"><span class="led"></span> V0 · Built</span>
+      <span class="badge plan"><span class="led"></span> V1 · Planned</span>
+      <span class="badge plan"><span class="led"></span> V2 · Planned</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#method">Read the method</a>
+      <a class="btn ghost" href="https://github.com/LoriT0T/foundry/tree/main/foundry-v0">View V0 on GitHub</a>
+    </div>
+    <p class="note" style="margin-top:1.8rem">A methodology, not a product — nothing to install, nothing to run as a service.</p>
+  </div>
+</div>
+
+<!-- THE METHOD -->
+<section id="method" class="alt">
+  <div class="wrap">
+    <p class="eyebrow">The idea</p>
+    <h2>Two principles and a birth sequence</h2>
+    <p class="lead">Foundry is two branches of documents an agent reads, plus a discipline for becoming itself. What makes it work is not the documents — it is two rules they never break, and one sequence every agent runs before it writes any code.</p>
+
+    <div class="grid2" style="margin-top:28px">
+      <div class="card">
+        <h3><span class="num">1</span> No bias</h3>
+        <p>The foundation carries <strong>zero project specifics</strong> — no domain, subject, person, or goal. Everything in it is universally true. Specifics enter only at instantiation, from the agent's own context, and flow <em>outward</em> into that agent — never back into the foundation.</p>
+        <p class="note">The test for anything in the branches: <em>would this be equally true for an agent doing something completely different?</em> If not, it doesn't belong.</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">2</span> No authority over judgment</h3>
+        <p>Every file is reference material an agent builds <em>from</em> — never an instruction it must obey. A file's completeness is <strong>not</strong> authority: the agent always decides whether to adapt a pattern, instantiate it, or build its own.</p>
+        <p class="note">Knowledge informs. It never commands.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:40px">The birth sequence</h3>
+    <p class="lead">An agent born from Foundry decides the hard questions <strong>before any code</strong>. The answers form a reviewable <em>birth certificate</em> — you can read exactly what the agent decided it is before it does anything.</p>
+    <ol class="steps">
+      <li><b>The goal</b> — stated in one sentence, with a concrete definition of what "working well" looks like.</li>
+      <li><b>Judgment vs. determinism</b> — where the work needs real judgment (reserve the model there) versus where it is rules and math (make that deterministic and reliable).</li>
+      <li><b>The data sources</b> — each distinct body of data the agent will work with, named.</li>
+      <li><b>The irreversible &amp; risky</b> — anything that moves money, posts publicly, or deletes — gated behind a human or a hard limit.</li>
+      <li><b>The cadence</b> — how often it runs, and how it reports back.</li>
+    </ol>
+    <div class="cert">After the certificate: the agent loads the behavioral foundation <strong>in full</strong>, reads the technical index, and instantiates each capability it actually needs against its own context — loading the heavy material only when a task calls for it.</div>
+  </div>
+</section>
+
+<!-- V0 -->
+<section id="v0">
+  <div class="wrap">
+    <p class="eyebrow"><span class="badge built" style="padding:3px 10px"><span class="led"></span> Built · real · in use</span></p>
+    <h2>Foundry V0 — the foundation that exists today</h2>
+    <p class="lead">V0 is real and in use. It is organized as two branches with deliberately different loading rules — the whole reason they are kept separate.</p>
+
+    <div class="grid2" style="margin-top:26px">
+      <div class="card">
+        <h3>foundation/ — behavioral</h3>
+        <p><em>How an agent thinks and works.</em> Small, universal, and <strong>loaded in full, every run</strong>. The execution loop, memory architecture, self-improvement, reliability, the red lines — plus two enforced build laws: compartmentalization, and a mistake-generalization engine that turns a single mistake into a rule its whole class can never repeat.</p>
+      </div>
+      <div class="card">
+        <h3>knowledge/ — technical</h3>
+        <p><em>How an agent builds real systems.</em> Larger, per-task, and <strong>loaded only when a task triggers it</strong> — the index is read at startup; the capability files are not. Ten production capabilities, each documenting the current standard.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:38px">The file inventory</h3>
+    <p class="lead">Everything in V0 is published, exactly as it is used — including both branches.</p>
+    <div class="inv">
+<span class="c"># foundry-v0/</span>
+BOOTSTRAP.md            <span class="c">the birth sequence + the loading rule</span>
+
+<span class="k">foundation/</span>            <span class="c">behavioral · loaded in full</span>
+  THINKING.md           MEMORY_ARCHITECTURE.md   SELF_IMPROVEMENT.md
+  ORCHESTRATION.md      RELIABILITY.md           QUALITY_RUBRIC.md
+  COMPARTMENTALIZATION.md   MISTAKE_ENGINE.md    RED_LINES.md
+
+<span class="k">knowledge/</span>             <span class="c">technical · loaded on trigger</span>
+  <span class="c">spine →</span>  INDEX.md  DECISION_RULE.md  tool-registry.md
+           INSTANTIATION_GUIDE.md  BOOTSTRAP_loading_section.md
+  <span class="c">capabilities →</span>  retrieval  guardrails  evaluation  observability
+           orchestration  deployment  mcp-tools  memory-systems
+           cost-routing  context-engineering
+    </div>
+
+    <h3 style="margin-top:38px">The loading discipline</h3>
+    <p class="lead">Load all of <code>foundation/</code>, always — it is bounded and universal, so the cost is fixed and small. Read only the <code>knowledge/</code> index at startup, and pull a capability file <strong>only when the task in front of you triggers it</strong>. The technical branch is open-ended; loading it wholesale would flood the context for no benefit. That asymmetry is why the two branches are separate, with separate rules.</p>
+
+    <h3 style="margin-top:34px">It corrects itself under real use</h3>
+    <div class="story">
+      <p style="margin-bottom:0">The <strong>first real agent</strong> built on Foundry surfaced a genuine contradiction <em>inside Foundry itself</em>: one reference file instructed a write that a foundation red line forbids. Because the method treats a red line as overriding any reference file, the agent resolved it correctly in the moment — and the fix was then made permanent at the <strong>class level</strong>: every place the same pattern appeared was corrected, not just the one that surfaced. A methodology built to catch and repair its own flaws under real use did exactly that on first contact with reality.</p>
+    </div>
+    <p style="margin-top:20px"><a class="btn ghost" href="https://github.com/LoriT0T/foundry/tree/main/foundry-v0">Browse the V0 files →</a></p>
+  </div>
+</section>
+
+<!-- VERSIONS -->
+<section id="versions" class="alt">
+  <div class="wrap">
+    <p class="eyebrow">The version ladder</p>
+    <h2>One built version. Two reserved slots.</h2>
+    <p class="lead">Foundry has its own version ladder, independent of any agent built on it. <strong>Only V0 exists today.</strong> V1 and V2 are reserved, empty slots — each will be built later by its <em>own</em> dedicated agent, exactly as V0 was. Their contents are not described here, because they have not been designed.</p>
+
+    <div class="grid3" style="margin-top:26px">
+      <div class="slot built">
+        <div class="st">● BUILT · IN USE</div>
+        <h3>V0</h3>
+        <p>The foundation: two branches, two principles, the birth sequence, the loading discipline. Real and published.</p>
+      </div>
+      <div class="slot plan">
+        <div class="st">○ PLANNED — TO BE BUILT</div>
+        <h3>V1</h3>
+        <p>Reserved slot. To be built by its own dedicated agent; this slot filled at that time. No contents have been designed.</p>
+      </div>
+      <div class="slot plan">
+        <div class="st">○ PLANNED — TO BE BUILT</div>
+        <h3>V2</h3>
+        <p>Reserved slot. To be built by its own dedicated agent; this slot filled at that time. No contents have been designed.</p>
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th>Version</th><th>Status</th><th>What it adds</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>V0</strong></td>
+          <td><span class="tag b">✅ Built — in use</span></td>
+          <td>The foundation: two branches, two principles, the birth sequence, the loading discipline.</td>
+        </tr>
+        <tr>
+          <td><strong>V1</strong></td>
+          <td><span class="tag p">🔲 Planned — not yet built</span></td>
+          <td class="tbd">To be defined when built (by its own agent).</td>
+        </tr>
+        <tr>
+          <td><strong>V2</strong></td>
+          <td><span class="tag p">🔲 Planned — not yet built</span></td>
+          <td class="tbd">To be defined when built (by its own agent).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- BUILT ON TOP -->
+<section id="built-on">
+  <div class="wrap">
+    <p class="eyebrow">Built on top of Foundry</p>
+    <h2>A real project, instantiated from this methodology</h2>
+    <p class="lead">Foundry is the foundation; the agents are separate projects that copy it. A real agent has been instantiated from V0 — built and maintained in its own repository, fully independent of this one.</p>
+    <p style="margin-top:14px">
+      <span class="ph">PLACEHOLDER</span> &nbsp; Agent project link to be added once that repository is public: <code>(to be added once the agent project repo is public)</code>
+    </p>
+    <p class="note">This site describes the Foundry methodology only. It contains none of the agent's code and references the agent project by link alone.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Foundry — an open agent-foundation methodology. © 2026 Musaed.</span>
+    <span>MIT License · <a href="https://github.com/LoriT0T/foundry">GitHub repository</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# secrets — never commit
+.env
+.env.*
+*.pem
+*token*
+*secret*
+
+# python
+__pycache__/
+*.pyc
+
+# editors
+.idea/
+.vscode/
+
+# logs
+*.log

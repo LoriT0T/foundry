@@ -9,7 +9,7 @@ Foundry is a *copy-into-any-new-agent* foundation: clone it, run the birth seque
 **Status:** Foundry **V0 is built and in use.** V1 and V2 are **planned placeholders** — each will be built later by its own dedicated agent (see the version ladder).
 
 - 🔗 **Site:** `https://LoriT0T.github.io/foundry/`
-- 📦 **Built on top of Foundry:** *(placeholder — a real agent project instantiated from this methodology; link added once that repo is public)*
+- 📦 **Built on top of Foundry:** a real, safety-critical agent instantiated from this methodology — [site](https://lorit0t.github.io/agentic-reschedule-assistant/) · [repo](https://github.com/LoriT0T/agentic-reschedule-assistant)
 
 ---
 
@@ -65,4 +65,4 @@ LICENSE              MIT
 
 ## License
 
-MIT — see [LICENSE](LICENSE). © 2026 LoriT0T.
+MIT — see [LICENSE](LICENSE). © 2026 Musaed Alqanaie.

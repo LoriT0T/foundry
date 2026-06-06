@@ -132,9 +132,39 @@ These are **questions of architecture, not specific rules** — each names a bou
 - **Add seams for the categories you added in §2.** The six above pair with the seed; a category you discovered needs its own seam. Same law: one concern, one unit.
 - **Gate the dangerous moment structurally.** Where a rule guards an irreversible act, make compliance a structural gate at the seam (fail-closed), not a judgment call (`RELIABILITY.md`, `RED_LINES.md`).
 
+**Attaching a gate is the floor; where a rule has an opinion about a seam's *shape* — not only its *check* — that is §5.**
+
 ---
 
-## 5. Failure modes (and the guard for each)
+## 5. Regulation drives the build (not only guards it)
+
+§4 attaches a gate that **CHECKS** a seam against a rule. §5 lets a rule decide the **SHAPE** of a seam in the first place. When §1 is positive, the rules discovered in §3 are a **primary design input** — on the same footing as the functional requirement, not a review applied after the build is settled. A regulation-*aware* system has gates over its choices; a regulation-*driven* system has its choices made *by* the regulation.
+
+**Build-shaping questions (extensible, like §2 — framed as questions about *properties*, never answers).** A "yes" anywhere is a build instruction, not a note for later:
+
+- **Does an obligation constrain *where* data, records, or processing may reside or travel?** Then the data layer is shaped to keep what must stay inside its boundary *by construction* — not patched with a check at the edge. The seam owning that data exists because the rule demands its location, before convenience proposes an alternative.
+- **Must the system *connect to*, register with, or defer to an external authority, registry, identity, or system of record?** Then the interfaces are shaped to that integration — the data model, the hand-off points, the identity and consent flows — even where the far end isn't yet reachable. The seam is shaped now; the integration is made real later (§3 STEP E records the dependency).
+- **Do obligations *narrow* how something may be stored, secured, proven, retained, or destroyed?** Then those constraints choose the technology and pattern before convenience does. The default is the shape the rule permits, not the shape that is familiar.
+- **Must actions be recorded, reversible, auditable, or human-gated?** Then those properties are designed in as structure — the unit, the boundary, the contract — not narrated as intent in a comment or a status line.
+
+Add the build-shaping questions your domain requires; this list, like §2, is a floor. The seam each question shapes is the same seam §4 attaches gates onto: `COMPARTMENTALIZATION.md` is the construction law underneath both — one concern, one unit, owning both its *shape* and its *rule*.
+
+**The honesty trichotomy (distinguish three states everywhere; never let the first absorb the others).** A regulation-driven build is read for what it actually is:
+- **(a) Built and verified** — real in *this* system: code exists, the seam owns its concern, the isolated test passes.
+- **(b) Correctly shaped but not yet connected** — a named external dependency the build is *shaped to*, but whose far end is not live. State it explicitly, *where it occurs* (the seam, the interface, the data hand-off) — never simulate it and present it as done.
+- **(c) Deliberately deferred** — a choice, stated as such, with its reason and the condition that would lift the deferral.
+
+These map onto `THINKING.md`'s Phase 4 distinction (*built-and-verified* vs *placeholder* vs *deliberately-skipped*, never blurred) and the *name the gap* discipline of `MISTAKE_ENGINE.md`. The failure mode they prevent is the regulated-build's signature trap: a *shaped* demonstration narrated as a *working production* system.
+
+**The bridge — every regulated build ends with a roadmap.** A correctly-shaped demonstration is *not* a deployable production system. Every regulated build closes by producing a roadmap from the demonstration to a fully compliant, deployable, working production system: the named external integrations that must be made real, the infrastructure that must exist in its required place, the verifications and approvals only an external authority can grant, and the order in which those steps must happen. The roadmap lives in the project layer (alongside §3 STEP E's findings); it is part of the deliverable, not an afterthought.
+
+> **The hard line, tied to `RED_LINES.md`.** The agent **never** reports the system as deployed, compliant, or certified on the strength of a demonstration. A demonstration shows the *shape* is right; deployment, compliance, and certification are facts only the live integrations, the real infrastructure, and the external authority can produce.
+
+> **Governing-test restatement.** Nothing in §5 names a place, a regime, a rule, or a technology. It only asks the system to let its *own* discovered obligations drive its *own* shape — and that is why it serves every regulated agent identically.
+
+---
+
+## 6. Failure modes (and the guard for each)
 
 | Failure | Cause | Guard |
 |---|---|---|
@@ -145,9 +175,11 @@ These are **questions of architecture, not specific rules** — each names a bou
 | "We've covered the rules" when categories are missing | the seed treated as exhaustive | §2 is an explicit floor: propose-more instruction, no false completeness |
 | One jurisdiction's rule generalized to another | anchoring on a known regime | the governing test: swap the jurisdiction and nothing here changes |
 | A once-confirmed rule silently goes stale | rules are dynamic; confirmation treated as permanent | playbook STEP F: freshness date + re-verify trigger on every finding |
+| System is regulation-aware but not regulation-driven (gates added over choices the rule should have made) | regulation treated as a review applied after the build is shaped by convenience | §5: discovered rules are a primary design input — they shape seams before convenience proposes alternatives |
+| Demonstration narrated as a deployed, compliant, or certified production system | shaped-but-not-connected absorbed into built-and-verified; the roadmap to production not produced | §5 honesty trichotomy + roadmap requirement; backed by the strengthened regulation red line in `RED_LINES.md` |
 
 ---
 
-> **For working memory:** You can't tell from inside whether you're regulated — check what the work touches and who can penalize it (§1). The categories are universal *questions* (§2, deliberately incomplete — propose more); the *answers* are researched fresh per project and live in your own layers, never in Foundry (§3); a rule you can't confirm is flagged, never guessed; whatever you find plugs into a prepared **seam**, never hardcoded (§4). No invented rule, no named regime, no sample regulation — ever.
+> **For working memory:** You can't tell from inside whether you're regulated — check what the work touches and who can penalize it (§1). The categories are universal *questions* (§2, deliberately incomplete — propose more); the *answers* are researched fresh per project and live in your own layers, never in Foundry (§3); whatever you find plugs into a prepared **seam**, never hardcoded (§4) — and where a rule has an opinion about a seam's *shape*, it drives the build (§5). A rule you can't confirm is flagged, never guessed. No invented rule, no named regime, no sample regulation — ever; no claim of deployment, compliance, or certification on the strength of a demonstration.
 
-**Maturity.** Discipline `[Established]`; full instantiation `[Draft — structural]` — promote once a real regulated agent has run §1–§4 end to end and a maintainer confirms: foundation loaded, specifics entered only at instantiation, no rule or regime written into this file, findings recorded only in the agent's own layers. Snapshot before any future rewrite to `runtime/iterations/` (`QUALITY_RUBRIC.md` crit. 5). **Sync invariants:** adding/changing this file → add/keep its `knowledge/INDEX.md` row (trigger = "the project operates in a regulated domain") in the same change; it is referenced by the regulation red line in `foundation/RED_LINES.md`; its findings update `identity/USER.md` + `project/<name>/COMPLIANCE.md` + `project/ARCHITECTURE.md` + `project/AGENT.md` per §3 STEP E.
+**Maturity.** Discipline `[Established]`; full instantiation `[Draft — structural]` — promote once a real regulated agent has run §1–§5 end to end (recognition → research → seams attached → seams *shaped* by discovered rules → honesty trichotomy + production roadmap produced) and a maintainer confirms: foundation loaded, specifics entered only at instantiation, no rule or regime written into this file, findings recorded only in the agent's own layers. Snapshot before any future rewrite to `runtime/iterations/` (`QUALITY_RUBRIC.md` crit. 5). **Sync invariants:** adding/changing this file → add/keep its `knowledge/INDEX.md` row (trigger = "the project operates in a regulated domain") in the same change; it is referenced by the regulation red line in `foundation/RED_LINES.md`; its findings update `identity/USER.md` + `project/<name>/COMPLIANCE.md` + `project/ARCHITECTURE.md` + `project/AGENT.md` per §3 STEP E.

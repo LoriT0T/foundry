@@ -55,7 +55,10 @@ STEP 1 — Gather your context. (This is where YOUR specifics enter — once, he
           knowledge/regulatory-architecture/SKILL.md now and run its research
           playbook (§3) BEFORE building. Its findings shape STEP 2–5 (which
           capabilities, which compliance seams, which constraints) and live only
-          in your identity/ + project/ layers.
+          in your identity/ + project/ layers. A YES also commits the build to
+          be DRIVEN by the discovered rules at STEP 3 — not only gated by them.
+          See regulatory-architecture §5: rules shape data-layer, interface,
+          and technology decisions before they are settled.
         – If NO → proceed exactly as today; the capability never loads and this
           agent behaves like any non-regulated (V0-born) agent.
       The silent failure this catches is not a missed capability — it is a
@@ -72,6 +75,11 @@ STEP 3 — For each needed capability, load its knowledge file and apply it.
   Read the file's universal pattern. Map the pattern onto YOUR context from
   STEP 1. (e.g. RAG's "match the embedding model to your content" → you pick
   the model that fits your language/domain, because now you know what that is.)
+  If STEP 1's regulated-domain recognition was YES, run regulatory-architecture
+  §5 here — the discovered rules drive data-layer, interface, and technology
+  decisions before they are settled (not after, as a review). The seams §4
+  prepares are the same seams §5 shapes; gates come on top of the shape, not
+  in place of it.
 
 STEP 4 — For each capability that has a tool, run DECISION_RULE.
   Name the data source → check your project's tool registry →

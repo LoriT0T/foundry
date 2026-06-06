@@ -198,19 +198,21 @@
     </summary>
     <div class="body">
       <ol class="steps">
+        <li><b>Problem verified or assumed?</b> — the new <em>first</em> question: is the problem given and verified, or merely assumed? An assumed problem triggers finding the real problem worth solving before anything else <em>(problem-discovery, added in V2)</em>.</li>
         <li><b>The goal</b> — in one sentence, with a concrete definition of what "working well" looks like.</li>
         <li><b>Judgment vs. determinism</b> — where the work needs real judgment (reserve the model there) versus where it is rules and math (make that deterministic and reliable).</li>
         <li><b>The data sources</b> — each distinct body of data the agent will work with, named.</li>
         <li><b>The irreversible &amp; risky</b> — anything that moves money, posts publicly, or deletes — gated behind a human or a hard limit.</li>
         <li><b>The cadence</b> — how often it runs, and how it reports back.</li>
+        <li><b>Regulated domain?</b> — whether the work operates under external regulation; if so, the current, researched rules drive the build <em>(regulatory-architecture, added in V1)</em>.</li>
       </ol>
-      <div class="cert">The answers form a reviewable <strong>birth certificate</strong>: before the agent does anything, you can read exactly what it decided it is. Then it loads the behavioral foundation in full, reads the technical index, and instantiates each capability against its own context.</div>
+      <div class="cert">The sequence now <strong>opens with problem-discovery (V2)</strong> and includes the <strong>regulated-domain check (V1)</strong> — both carry zero specifics of their own. The answers form a reviewable <strong>birth certificate</strong>: before the agent does anything, you can read exactly what it decided it is. Then it loads the behavioral foundation in full, reads the technical index, and instantiates each capability against its own context.</div>
     </div>
   </details>
 
   <details class="sec">
     <summary>
-      <span><span class="tl">Foundry V0 — the foundation that exists today</span><span class="teaser">Two branches, the real file inventory, and the loading discipline.</span></span>
+      <span><span class="tl">The foundation that exists today</span><span class="teaser">Two branches, the real file inventory, and the loading discipline.</span></span>
       <span class="chev">▸</span>
     </summary>
     <div class="body">
@@ -221,12 +223,12 @@
         </div>
         <div class="card">
           <h3>knowledge/ — technical</h3>
-          <p><em>How an agent builds real systems.</em> Larger, per-task, <strong>loaded only when a task triggers it</strong> — the index is read at startup; the capability files are not. Ten production capabilities, each documenting the current standard.</p>
+          <p><em>How an agent builds real systems.</em> Larger, per-task, <strong>loaded only when a task triggers it</strong> — the index is read at startup; the capability files are not. Twelve production capabilities, each documenting the current standard.</p>
         </div>
       </div>
-      <p style="margin-top:20px"><strong>The file inventory</strong> — everything in V0 is published, exactly as it is used:</p>
+      <p style="margin-top:20px"><strong>The file inventory</strong> — everything is published, exactly as it is used (current state, V2):</p>
       <div class="inv">
-<span class="c"># foundry-v0/</span>
+<span class="c"># foundry-v2/  (current — V0 + V1 + V2)</span>
 BOOTSTRAP.md            <span class="c">the birth sequence + the loading rule</span>
 
 <span class="k">foundation/</span>            <span class="c">behavioral · loaded in full</span>
@@ -240,9 +242,10 @@ BOOTSTRAP.md            <span class="c">the birth sequence + the loading rule</s
   <span class="c">capabilities →</span> retrieval  guardrails  evaluation  observability
           orchestration  deployment  mcp-tools  memory-systems
           cost-routing  context-engineering
+          regulatory-architecture  problem-discovery
       </div>
       <p style="margin-top:20px"><strong>The loading discipline.</strong> Load all of <code>foundation/</code>, always — it is bounded and universal, so the cost is fixed and small. Read only the <code>knowledge/</code> index at startup, and pull a capability file <strong>only when the task in front of you triggers it</strong>. The technical branch is open-ended; loading it wholesale would flood the context for no benefit. That asymmetry is why the two branches are kept separate, with separate rules.</p>
-      <p><a class="btn ghost" href="https://github.com/LoriT0T/foundry/tree/main/foundry-v0">Browse the V0 files →</a></p>
+      <p><a class="btn ghost" href="https://github.com/LoriT0T/foundry/tree/main/foundry-v2">Browse the current files →</a></p>
     </div>
   </details>
 
@@ -283,17 +286,32 @@ BOOTSTRAP.md            <span class="c">the birth sequence + the loading rule</s
 
   <details class="sec">
     <summary>
-      <span><span class="tl">Built on top of Foundry</span><span class="teaser">A real, separate project instantiated from this methodology.</span></span>
+      <span><span class="tl">Built on top of Foundry</span><span class="teaser">Two real, independent agents instantiated from this methodology.</span></span>
       <span class="chev">▸</span>
     </summary>
     <div class="body">
-      <p>Foundry is the foundation; the agents are separate projects that copy it. A <strong>real, safety-critical agent instantiated from this methodology</strong> — a medical-appointment scheduling assistant — has been built and is maintained in its own repository, fully independent of this one. Its safety-critical behavior is gated by a passing test suite and a separate safety evaluation.</p>
-      <p class="links">
-        <a class="btn ghost" href="https://lorit0t.github.io/agentic-reschedule-assistant/">Agent site →</a>
-        &nbsp;
-        <a class="btn ghost" href="https://github.com/LoriT0T/agentic-reschedule-assistant">Agent repository →</a>
-      </p>
-      <p class="note">This site describes the Foundry methodology only. It contains none of the agent's code and references the agent project by link alone.</p>
+      <p>Foundry is the foundation; the agents are separate projects that copy it. <strong>Two real, independent agents</strong> have been instantiated from this methodology, each built and maintained in its own repository, fully independent of this one.</p>
+      <div class="two">
+        <div class="card">
+          <h3>L0 — general safe-build demonstration</h3>
+          <p>A safety-critical scheduling assistant whose risky steps are gated by a passing test suite and a separate safety evaluation — a general demonstration of building safely on the foundation.</p>
+          <p class="links">
+            <a class="btn ghost" href="https://lorit0t.github.io/agentic-reschedule-assistant/">Agent site →</a>
+            &nbsp;
+            <a class="btn ghost" href="https://github.com/LoriT0T/agentic-reschedule-assistant">Repository →</a>
+          </p>
+        </div>
+        <div class="card">
+          <h3>L1 — regulated-market demonstration</h3>
+          <p>An agent built for a domain that operates under external regulation — a demonstration of the regulated-domain discipline, where current, researched rules drive the build.</p>
+          <p class="links">
+            <a class="btn ghost" href="https://lorit0t.github.io/Regulated-Reschedule-Agent/">Agent site →</a>
+            &nbsp;
+            <a class="btn ghost" href="https://github.com/LoriT0T/Regulated-Reschedule-Agent">Repository →</a>
+          </p>
+        </div>
+      </div>
+      <p class="note">This site describes the Foundry methodology only. It contains none of the agents' code and references each agent project by link alone.</p>
     </div>
   </details>
 </div>

@@ -9,7 +9,9 @@ Foundry is a *copy-into-any-new-agent* foundation: clone it, run the birth seque
 **Status:** Foundry **V0, V1, and V2 are built and in use.** V0 is the foundation; V1 adds operating under regulation; V2 adds knowing *which problem* to solve first (see the version ladder). Each version is a single evolving tree; older slots are frozen snapshots.
 
 - 🔗 **Site:** `https://LoriT0T.github.io/foundry/`
-- 📦 **Built on top of Foundry:** a real, safety-critical agent instantiated from this methodology — [site](https://lorit0t.github.io/agentic-reschedule-assistant/) · [repo](https://github.com/LoriT0T/agentic-reschedule-assistant)
+- 📦 **Built on top of Foundry — two real, independent agents:**
+  - **L0** (general safe-build demonstration) — [site](https://lorit0t.github.io/agentic-reschedule-assistant/) · [repo](https://github.com/LoriT0T/agentic-reschedule-assistant)
+  - **L1** (regulated-market demonstration) — [site](https://lorit0t.github.io/Regulated-Reschedule-Agent/) · [repo](https://github.com/LoriT0T/Regulated-Reschedule-Agent)
 
 ---
 
@@ -22,19 +24,21 @@ Foundry is a *copy-into-any-new-agent* foundation: clone it, run the birth seque
 ## The two branches
 
 - **`foundation/` (behavioral)** — how an agent thinks and works: the execution loop, memory architecture, self-improvement, reliability, the red lines, and two enforced build laws (compartmentalization, and a mistake-generalization engine that turns any single mistake into a rule its whole class can never repeat). Small, universal, **loaded in full, always.**
-- **`knowledge/` (technical)** — production capabilities: retrieval, guardrails, evaluation, observability, orchestration, deployment, the tool layer (MCP), memory at scale, cost/routing, and context engineering. Larger, per-task, **loaded only when a task triggers a capability** — the index is read at startup; the files are not.
+- **`knowledge/` (technical)** — twelve production capabilities: retrieval, guardrails, evaluation, observability, orchestration, deployment, the tool layer (MCP), memory at scale, cost/routing, context engineering, regulatory architecture (operating under external regulation — zero actual rules in-file), and problem discovery (finding the problem worth solving — zero actual problems in-file). Larger, per-task, **loaded only when a task triggers a capability** — the index is read at startup; the files are not.
 
 ## The birth sequence
 
 An agent born from Foundry decides the hard questions **before any code**:
 
-1. The goal — and what "working well" looks like, concretely.
-2. Where real judgment is needed vs. where the work is deterministic.
-3. The data sources it will work with.
-4. What is irreversible or risky, and therefore needs a human gate.
-5. The cadence it runs on, and how it reports.
+1. **Problem verified or assumed?** — the new *first* question: is the problem given and verified, or merely assumed? An assumed problem triggers finding the real problem worth solving before anything else *(problem-discovery, V2)*.
+2. The goal — one sentence, plus what "working well" concretely looks like.
+3. Judgment vs. determinism — where the work needs real judgment vs. where it is rules and math.
+4. The data sources — each distinct body of data the agent will work with, named.
+5. The irreversible & risky — anything that moves money, posts publicly, or deletes, gated behind a human or a hard limit.
+6. The cadence it runs on, and how it reports back.
+7. **Regulated domain?** — whether the work operates under external regulation; if so, the current, researched rules drive the build *(regulatory-architecture, V1)*.
 
-As of V2 the sequence is bracketed by two mandatory recognition questions that carry **zero** specifics of their own: **first** — *is the problem real, or merely assumed?* (V2); and before building — *does this domain operate under external regulation?* (V1). A "yes/assumed" routes to the matching capability's research playbook; a "no/verified" loads nothing and the agent proceeds exactly as a V0-born one.
+The sequence now **opens with problem-discovery (V2)** and includes the **regulated-domain check (V1)** — both carry *zero* specifics of their own: a "yes/assumed" routes to that capability's research playbook; a "no/verified" loads nothing, and the agent proceeds exactly as a V0-born one.
 
 The answers form a reviewable **birth certificate**: before the agent does anything, you can read exactly what it decided it is. Then it loads the foundation in full, reads the knowledge index, and instantiates each capability against its own context.
 

@@ -82,7 +82,7 @@ Each automated run is a **fresh mind with no memory of before.** So the first ac
 1. **Rehydrate.** Load `foundation/` (the thinking). Read `knowledge/INDEX.md` (the map). Read the agent's own `identity/` and the relevant `project/` state.
 2. **Run the execution loop** (`foundation/THINKING.md`). In the **Plan** phase, ask explicitly: *does this task trigger a knowledge file or a tool?* If yes, load the minimum set (Part 0, steps 3–4). If no, proceed on the foundation alone.
 3. **Execute compartmentalized** (`foundation/COMPARTMENTALIZATION.md`): smallest units, one orchestrator, fix at the root.
-4. **Verify with evidence**, then **record**: update `project/` state and `runtime/` logs. On any mistake, run the **mistake engine** (`foundation/MISTAKE_ENGINE.md`) — climb to the invariant, wire the guardrail.
+4. **Verify with evidence** — for high-stakes work, with an *independent* fresh context, not the one that built the artifact (`foundation/RELIABILITY.md` §2). **Record as you go, not only at the end:** the live context is volatile, so externalize decisions, progress, and open questions to `project/` state and `runtime/` logs at each milestone (`foundation/MEMORY_ARCHITECTURE.md`). On any mistake, run the **mistake engine** (`foundation/MISTAKE_ENGINE.md`) — climb to the invariant, wire the guardrail.
 5. **Never edit `foundation/` or `knowledge/`.**
 
 ---

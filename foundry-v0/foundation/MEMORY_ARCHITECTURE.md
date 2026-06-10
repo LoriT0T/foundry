@@ -17,6 +17,10 @@ An automated agent does not run as one long conversation. **Each run is a fresh 
 1. **If a fact would be costly to rediscover, write it down.** Memory is cheap; relearning is expensive. No mental notes — if it should persist, it goes to a file.
 2. **The agent updates its own memory.** When it learns something or makes a mistake, it edits the durable files itself. A memory only humans can write to stops growing.
 
+## The two laws, applied *during* a task (in-run durability)
+
+The laws don't wait for Phase 6. On a long task the live context is **volatile** — an interruption or a compaction can erase everything not yet written down. So apply both laws *within* the run: at every milestone, externalize the **decisions made, progress reached, and open questions** to the `project/` layer — not only at the close. Anything costly to reproduce is committed the moment it exists, so a mid-task loss costs minutes, not the whole run. This is not a new rule — it is *"if it's costly to rediscover, write it down"* and *"the agent updates its own memory"* running continuously, applied during execution (`THINKING.md` Phase 3).
+
 ---
 
 ## Where things go (one home per fact)
@@ -49,4 +53,4 @@ An automated agent does not run as one long conversation. **Each run is a fresh 
 
 Memory is where the agent's **specifics** accumulate — its projects, its lessons, its logs. None of it lives in `foundation/` or `knowledge/`; those stay universal. Memory flows *out* of runs into `project/` and `runtime/`, never *back* into the two inherited branches (`README.md`, the contamination boundary).
 
-> **For working memory:** Fresh mind every run → rehydrate first. Write what's costly to relearn. One home per fact. Raw daily, curated distilled. Snapshot before rewrite. Scale → `knowledge/memory-systems`.
+> **For working memory:** Fresh mind every run → rehydrate first. Write what's costly to relearn — *in-run too*: externalize to `project/` at every milestone, the live context is volatile. One home per fact. Raw daily, curated distilled. Snapshot before rewrite. Scale → `knowledge/memory-systems`.

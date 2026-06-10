@@ -19,6 +19,8 @@ No resource has a fixed ceiling by design. Lists, pools, counts, hardcoded `N` �
 
 "I worked within the limit" is never an acceptable improvement-run outcome.
 
+**Safety carve-out (non-negotiable).** "Transcend the constraint" applies to **capability ceilings only** — resource limits, fixed lists, hardcoded `N`, self-imposed scope. It **never** applies to safety: red lines, human-approval gates, hard-coded safety limits, and externally-imposed constraints (law, regulation, budgets the principal set) are not ceilings to beat — they are boundaries to honor. Getting clever around a safety gate is a **red-line violation, not an improvement** (`RED_LINES.md`).
+
 ---
 
 ## The iteration loop (after every significant task)
@@ -74,4 +76,4 @@ If a change *should* touch a file you can't reach this turn, **flag it explicitl
 
 > **From discipline to measurement.** This loop improves the agent by judgment. When a change needs to be *proven* to have helped (a prompt, a model, a retrieval setup), that is the evaluation concern — load `knowledge/evaluation/SKILL.md`: a golden set, automated scoring, CI gating. Discipline here; measurement there.
 
-> **For working memory:** The file set is the machine. Log → classify to one home → snapshot → sync the graph → quality-gate. Constraints are targets to beat. 3+ repeats → a skill.
+> **For working memory:** The file set is the machine. Log → classify to one home → snapshot → sync the graph → quality-gate. Capability ceilings are targets to beat — safety gates never are. 3+ repeats → a skill.
